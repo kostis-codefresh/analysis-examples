@@ -4,7 +4,7 @@ metadata:
   name: sleep-and-fail-parent
 spec:
   metrics:
-  - name: sleep-and-fail
+  - name: sleep-and-fail-child
     count: 1
     interval: 5s
     failureLimit: 0
