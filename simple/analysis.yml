@@ -1,7 +1,7 @@
 kind: AnalysisTemplate
 apiVersion: argoproj.io/v1alpha1
 metadata:
-  name: sleep-and-fail
+  name: sleep-and-fail-parent
 spec:
   metrics:
   - name: sleep-and-fail

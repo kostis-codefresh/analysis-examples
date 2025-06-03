@@ -14,7 +14,7 @@ spec:
       - setWeight: 100
       - analysis:
           templates:
-          - templateName: sleep-and-fail
+          - templateName: sleep-and-fail-parent
   revisionHistoryLimit: 2
   selector:
     matchLabels:
