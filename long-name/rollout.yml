@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollouts-demo01
+spec:
+  replicas: 3
+  revisionHistoryLimit : 0
+  strategy:
+    canary:
+      canaryService: rollout-canary-preview 
+      stableService: rollout-canary-stable      
+      steps:
+      - setWeight: 0
+      - setWeight: 100
+      - analysis:
+          templates:
+          - templateName: service-endpoint-reachable
+          args:
+          - name: service-fqdn
+            value: demo   
+            # value: guestbook-svc.default.svc.cluster.local    
+          - name: status-code
+            value: "200"                     
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: cost-demo
+  template:
+    metadata:
+      labels:
+        app: cost-demo
+    spec:
+      containers:
+        - name: cost-demo
+          # image: ghcr.io/kostis-codefresh/rollouts-autoscaling-example:v1
+          image: ghcr.io/kostis-codefresh/rollouts-autoscaling-example:v2              
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
